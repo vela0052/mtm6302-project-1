@@ -235,7 +235,12 @@ $modal.addEventListener('click', function(e){
     //console.log(e.target.dataset)
     //check if the e.target.dataset.bsDismiss = 'modal'
     // identify clicking on close Button
-    if(e.target.dataset.bsDismiss !== 'modal'){
+    if(e.target.dataset.bsDismiss === 'modal'){
+        // clear the form
+        $editForm.reset()
+        //close the modal 
+        $modal.style.display = 'none'
+
 
     }
 
