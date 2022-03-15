@@ -47,6 +47,15 @@ const $ideas = document.getElementById('ideas')
 const $form = document.getElementById('form')
 //retrieve text element
 const $text = document.getElementById('text')
+//retrive the modal
+const $modal = document.getElementById('modal')
+// retrieve the edit text element
+const $editText = document.getElementById('editText')
+// retrieve the save Button elemenu
+const $saveButton = document.getElementById('saveButton')
+// retrieve the edit form element
+const $editForm = document.getElementById('editForm')
+
 
 function createIdeas() {
     // create an empty array
@@ -59,16 +68,16 @@ function createIdeas() {
     // for ... of 
     // for this project the index will be needed
     //data.ideas is a array of object
-    // access an object using the index data.ideas [1] === secont item
+    // access an object using the index data.ideas [1] !== secont item
     //access the user of the second object:
     // data.ideas[1].username =====  'maxblagub'
     for (let i = 0; i < data.ideas.length; i++) {
         if(data.ideas[i].username == "currentUser"){
             html.push(`<div class="card m-3">
             <div class="card-header">
-               ${data.ideas[i].username} <p class="ms-3">You</p>
+               ${data.ideas[i].username} <p class="ms-3 bg-primary text-white -weight-bold">You</p>
                <button class="btn btn-danger ms-auto delete" data-index="${i}">Delete</button>
-               <button class="btn btn-outline-primary ms-3 edit" data-index="${i}">Edit</button>
+               <button class="btn btn-outline-primary ms-3 edit"  data-index="${i}">Edit</button>
             </div>
             <div class="card-body">
               
@@ -86,7 +95,7 @@ function createIdeas() {
             html.push(`<div class="card m-3">
             <div class="card-header">
                ${data.ideas[i].username}
-               <button class="btn  ms-auto delete data-index="${i}""></button>
+               
             </div>
             <div class="card-body">
               
@@ -164,6 +173,20 @@ $ideas.addEventListener('click', function (e) {
         //update ideas
         createIdeas()
     }
+    //access element data properties by using dataset
+    if(e.target.dataset.index !== undefined ){
+        if(e.target.classList.contains('edit')){
+            //get the idea from the ideas array
+            const idea = data.ideas[e.target.dataset.index]
+            //console.log(idea)
+
+            //update the value of the edit text element
+            $editText.value = idea.content
+            // add data-index attribute to our save button
+            $saveButton.dataset.index = e.target.dataset.index
+            $modal.style.display = 'block'
+        }
+    } 
 })
 
 $form.addEventListener('submit', function(e){
@@ -180,7 +203,41 @@ $form.addEventListener('submit', function(e){
 
     //clear the form
     $form.reset()
-
+    //create Idea
     createIdeas()
+
+})
+
+$saveButton.addEventListener('click', function(e){
+    //update the note with the form data
+    //get the edit text value
+    const editText = $editText.value
+
+    // get the ideas index
+    const index = $saveButton.dataset.index
+
+    //update the note with the new edit text for the index
+    data.ideas[index].content = editText
+
+    // update the ideas
+    createIdeas()
+
+    // clear the form
+    $editForm.reset()
+
+
+
+    //close the modal
+    $modal.style.display = 'none'
+
+})
+$modal.addEventListener('click', function(e){
+    //console.log(e.target.dataset)
+    //check if the e.target.dataset.bsDismiss = 'modal'
+    // identify clicking on close Button
+    if(e.target.dataset.bsDismiss !== 'modal'){
+
+    }
+
 
 })
