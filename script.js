@@ -75,9 +75,9 @@ function createIdeas() {
         if(data.ideas[i].username == "currentUser"){
             html.push(`<div class="card m-3">
             <div class="card-header">
-               ${data.ideas[i].username} <p class="ms-3 bg-primary text-white -weight-bold">You</p>
-               <button class="btn btn-danger ms-auto delete" data-index="${i}">Delete</button>
-               <button class="btn btn-outline-primary ms-3 edit"  data-index="${i}">Edit</button>
+               ${data.ideas[i].username} <p class="ms-3 rounded-1 bg-primary text-white -weight-bold"><i class="fa-solid fa-star"></i> You</p>
+               <button class="btn btn-danger ms-auto delete" data-index="${i}"> <i class="fa-solid fa-x"></i> Delete</button>
+               <button class="btn btn-outline-primary ms-3 edit"  data-index="${i}"><i class="fa-solid fa-pencil"></i> Edit</button>
             </div>
             <div class="card-body">
               
